@@ -6,6 +6,8 @@ Student chuck = new Student("Chuck", new StudentClasses("Biology I", 82, 3), new
 
 Console.WriteLine($"Student Name: {sneed.Name}, ID: {sneed.Id}, Final Grade: {sneed.FinalScore}, Letter Grade: {sneed.LetterScore}");
 sneed.PrintString();
+sneed.ChangeGrade("computer science", 100);
+sneed.PrintString();
 Console.WriteLine($"Student Name: {jimbo.Name}, ID: {jimbo.Id}, Final Grade: {jimbo.FinalScore}, Letter Grade: {jimbo.LetterScore}");
 jimbo.PrintString();
 Console.WriteLine($"Student Name: {chuck.Name}, ID: {chuck.Id}, Final Grade: {chuck.FinalScore}, Letter Grade: {chuck.LetterScore}");
