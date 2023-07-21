@@ -12,4 +12,4 @@ Console.WriteLine($"Student Name: {sneed.Name}, ID: {sneed.Id}, Final Grade: {sn
 Console.WriteLine($"Student Name: {jimbo.Name}, ID: {jimbo.Id}, Final Grade: {jimbo.FinalScore}, Letter Grade: {jimbo.LetterScore}");
 jimbo.PrintString();
 Console.WriteLine($"Student Name: {chuck.Name}, ID: {chuck.Id}, Final Grade: {chuck.FinalScore}, Letter Grade: {chuck.LetterScore}");
-jimbo.PrintString();
+chuck.PrintString();
