@@ -10,30 +10,24 @@ namespace Student_Grade_Calculator
 {
     internal class Student
     {
-        public int id { get; }
-        public string name { get; }
-        public int englishScore { get; }
-        public int algebraScore { get; }
-        public int biologyScore { get; }
-        public int csScore { get; }
-        public int psychologyScore { get; }
-        public int finalScore { get; }
-        public string letterScore { get; }
-
-
-        public Student(string name, int englishScore, int algebraScore, int biologyScore, int csScore, int psyschologyScore)
+        internal int id { get; }
+        internal string name { get; }
+        internal int finalScore { get; }
+        internal string letterScore { get; }
+        private List<StudentClasses> classList = new List<StudentClasses>(); // list to keep track of a student's classes
+        
+        public Student(string name, params StudentClasses[] newClass) // student constructor that accepts an arbitrary number of StudentClasses objects
         {
-            this.id = new Random().Next(10000, 99999);
+            id = new Random().Next(10000, 99999);
             this.name = name;
-            this.englishScore = englishScore;
-            this.algebraScore = algebraScore;
-            this.biologyScore = biologyScore;
-            this.csScore = csScore;
-            this.psychologyScore = psyschologyScore;
-            this.finalScore = calcScore(this.englishScore, this.algebraScore, this.biologyScore, this.csScore, this.psychologyScore);
-
-
-            switch (this.finalScore)
+            foreach (StudentClasses newClasses in newClass)
+            {
+                classList.Add(newClasses);
+            }
+            
+            finalScore = calcScore();
+            
+            switch (this.finalScore) // converts student's final numerical grade to a letter grade
             {
                 case >= 90:
                     this.letterScore = "A";
@@ -56,14 +50,53 @@ namespace Student_Grade_Calculator
             }
         }
 
-        public int calcScore(int englishScore, int algebraScore, int biologyScore, int csScore, int psychologyScore)
+        public void addClass(StudentClasses newStudentClass) // method to add classes to an already existing student's list
         {
-            int eValue = englishScore * 3;
-            int aValue = algebraScore * 3;
-            int bValue = biologyScore * 4;
-            int cValue = csScore * 4;
-            int pValue = psychologyScore * 3;
-            return (eValue + aValue + bValue + cValue + pValue) / 17;
+            classList.Add(newStudentClass);
+        }
+
+        public int calcScore() // calculate total score by iterating through a student's classList
+        {
+            int GPA = 0;
+            int totalCredits = 0;
+            foreach (StudentClasses classScore in classList) // iterates through the classList
+            {
+                GPA += classScore.grade * classScore.credits;
+                totalCredits += classScore.credits;
+            }
+
+            if (totalCredits > 0) // simple if/else to prevent any division by zero
+            {
+                return GPA / totalCredits;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public void toString() // prints out a student's classes with respective grades and credit weights
+        {
+            foreach (StudentClasses curClass in classList)
+            {
+                Console.WriteLine($"Class name: {curClass.name}, Current grade: {curClass.grade}, Credit weight: {curClass.credits}");
+            }
+        }
+    }
+    
+    internal class StudentClasses // class object for keeping a class' name, grade value, and credit weight
+    {
+        internal string name { get; }
+        internal int grade { get; }
+        internal int credits { get; }
+
+        public StudentClasses(string name, int grade, int credits)
+        {
+            this.name = name;
+            this.grade = grade;
+            this.credits = credits;
         }
     }
 }
+
+// TODO: add a GUI
