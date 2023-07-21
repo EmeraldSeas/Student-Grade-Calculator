@@ -45,6 +45,7 @@
         public void AddClass(StudentClasses newStudentClass) // method to add classes to an already existing student's list
         {
             classList.Add(newStudentClass);
+            FinalScore = CalcScore(); // recalculate final score after adding a new class
         }
 
         private int CalcScore() // calculate total score by iterating through a student's classList
@@ -81,6 +82,7 @@
             // use String's Equals method with StringComparison set to OrdinalIgnoreCase to make the search case-insensitive
             // match strings, find specific class instance in classList, call its SetGrade
             classList.Find(x => name.Equals(x.Name, StringComparison.OrdinalIgnoreCase)).SetGrade(grade);
+            FinalScore = CalcScore(); // recalculate final score after changing grade
         }
     }
     
